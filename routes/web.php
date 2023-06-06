@@ -78,6 +78,8 @@ Route::get('/traitements/{traitement}/modifier',[TraitementController::class,'mo
 Route::put('/traitements/{traitements}',[TraitementController::class,'update'])
 ->name('traitements.update');
 
+Route::get('/traitements/{traitements}/patients', [TraitementController::class,'list_patients'])->name("list_patient_for_treatment");
+
 
 
 

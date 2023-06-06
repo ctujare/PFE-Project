@@ -1,8 +1,6 @@
 <x-masterDash title="Traitements">
-
-
     <div class="table-ajouter-title py-2 mt-2"> 
-        <h2>  La liste des Traitements </h2>
+        <h2> Patients List for {{ $traitement->Acte }} </h2>
         <a class="btn btn-primary btn-lg action-btn" href="{{ route('traitements.Ajouter') }}"role="button" >
         Ajouter
         </a>
@@ -10,44 +8,39 @@
 
     <table class="table table-bordered ">
         <tr>
-            <th>Numéro de traitement</th>
-            <th>No of Patients</th>
-            <th>Type de Traitement</th>
-            <th>Numéro de Dent</th>
+            <th>NumDoss</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>DOB</th>
             <th>Actions</th>
         </tr>
 
-        @foreach ($traitements as $traitement)
+        @foreach ($traitement->patients as $patient)
             <tr>
-                <td>{{ $traitement->Num_Traitement }}</td>
-                <td>
-                    <a href="{{ route("list_patient_for_treatment", $traitement) }}">
-                        {{ count($traitement->patients) }}
-                    </a>
-                </td>
-                <td>{{ $traitement->Acte }}</td>
-                <td>{{ $traitement->Dent }}</td>
+                <td>{{ $patient->NumDoss }}</td>
+                <td>{{ $patient->PrenomPat }}</td>
+                <td>{{ $patient->NomPat }}</td>
+                <td>{{ $patient->Sexe }}</td>
+                <td>{{ $patient->DateNaiss }}</td>
                 <td class="text-center">
                     {{-- Les actions d'insertion,modification et suppression  --}}
-                    <form action="{{ route('traitements.modifier', $traitement->patients->first()->NumDoss) }}" method="GET"
+                    <form action="{{ route('traitements.modifier', $patient->NumDoss) }}" method="GET"
                         style="display:inline">
                         @csrf
                         <button type="submit" class="btn btn-secondary btn-sm action-btn">Modifier</button>
                     </form>
-                    <form action="{{ route('traitements.supprimer', $traitement->patients->first()->NumDoss) }}" method="POST"
+                    <form action="{{ route('traitements.supprimer', $patient->NumDoss) }}" method="POST"
                         style="display:inline">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger btn-sm action-btn">Supprimer</button>
                     </form>
                     <a class="btn btn-warning btn-sm action-btn"
-                        href="{{ route('patients.Afficher',$traitement->patients->first()->NumDoss) }}" role="button">Afficher
+                        href="{{ route('patients.Afficher',$patient->NumDoss) }}" role="button">Afficher
                         Plus</a>
                 </td>
             </tr>
         @endforeach
-    </table>
-
-    {{ $traitements->links() }}
-    
+    </table>    
 </x-masterDash>

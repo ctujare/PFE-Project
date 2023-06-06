@@ -70,4 +70,11 @@ class TraitementController extends Controller
             ->route('patientspage')
             ->with('success', 'Patient ajouté avec succès.');
     }
+
+    public function list_patients($traitement)
+    {
+        $traitement = Traitement::find($traitement);
+        return view('dashboardpages.Patient_Traitements', compact('traitement'));
+        // return $traitement->patients;
+    }
 }
